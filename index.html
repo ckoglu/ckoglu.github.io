@@ -3,50 +3,491 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CK - Kişisel Sayfa</title>
-    <meta name="description" content="ckoglu kişisel sayfa">
-    <meta name="keywords" content="ckoglu, profil, github, ck, sayfa">
+    <title>ckoglu</title>
+    <meta name="description" content="ckoglu blog sayfası">
+    <meta name="keywords" content="ckoglu, github, blog, sayfa, html, page, json">
     <meta name="author" content="ckoglu">
-    <link rel="icon" href="https://avatars.githubusercontent.com/u/75999325?v=4">
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/75999325?v=4&size=16">
     <meta name="theme-color" content="#58437e" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preload" href="style.css" as="style">
     <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+        --bg-primary: #fcf5eb;
+        --white-clr: #ffffff;
+        --text-primary: #1a1a1a;
+        --text-secondary: #3a3a3a;
+        --accent-primary: #d85a5a;
+        --accent-secondary: #005747;
+        --accent-pastel: #ffd8a8;
+        --accent-pastel-2: #00735d33;
+        --border-clr: #000000;
+        --shadow: 0 3px 0 var(--border-clr);
+        --shadow-hover: 0 5px 0 var(--border-clr);
+        --border-w:1px;
+        --max-w: 780px;
+        --sidebar-w: 270px;
+        --padding: 22px;
+        --font-size: 17px;
+        --transition: all 0.2s ease;
+        --sans-font: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    
+    *{box-sizing:border-box;margin:0;padding:0;border-radius:0!important}
+    body{font-family:var(--sans-font);font-size:var(--font-size);background:var(--bg-primary);color:var(--text-primary);line-height:1.6;display:flex;min-height:100vh;overflow-x:hidden;text-transform: lowercase;}
+    a {text-decoration: none;color:initial}
+    header[role="top"]{display: none;flex-wrap: wrap;align-items: center;justify-content: space-between;gap: calc(var(--padding) / 4);width:100%;background:var(--accent-pastel);padding:calc(var(--padding) / 2);}
+    header[role="top"] section {display: flex; flex-wrap: wrap;align-items: center;gap:calc(var(--padding)/4)}
+    header[role="top"] section picture {line-height: 0;}
+    header[role="top"] section h1{font-size:calc(var(--font-size) + 14px);font-weight:700;color:var(--text-primary);letter-spacing:-1px;line-height:1.1;margin-bottom:calc(var(--padding)/5)}
+    header[role="top"] section h1 a:hover{text-decoration: underline;}
+    header[role="top"] #menuToggle{display:none;z-index:100;background:var(--white-clr);border:var(--border-w) solid var(--border-clr);width:calc(var(--padding)*2);height:calc(var(--padding)*2);align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow)}
+    aside[role="leftbar"]{width:var(--sidebar-w);background:var(--accent-pastel);border-right:calc(var(--border-w)*3) solid var(--border-clr);padding:var(--padding);display:flex;flex-direction:column;position:fixed;height:100vh;overflow-y:auto;z-index:10;transition:var(--transition)}
+    aside[role="leftbar"] header{margin-bottom:calc(var(--padding)*1.5);padding-bottom:var(--padding);border-bottom:var(--border-w) solid var(--border-clr)}
+    aside[role="leftbar"] header section {display: flex; flex-wrap: wrap;align-items: center;gap:calc(var(--padding)/4)}
+    aside[role="leftbar"] header section picture{line-height: 0;}
+    aside[role="leftbar"] header section h1{font-size:calc(var(--font-size) + 14px);font-weight:700;color:var(--text-primary);letter-spacing:-1px;line-height:1.1;margin-bottom:calc(var(--padding)/5)}
+    aside[role="leftbar"] header section h1 a:hover {text-decoration: underline;}
+    aside[role="leftbar"] header p{color:var(--text-secondary);font-size:var(--font-size);font-weight:400}
+    aside[role="leftbar"]  nav{display:flex;flex-direction:column;gap:calc(var(--padding)/4)}
+    aside[role="leftbar"]  nav a{display:flex;align-items:center;padding:calc(var(--padding)/3) calc(var(--padding)/2);text-decoration:none;color:var(--text-primary);transition:var(--transition);font-weight:500;border:var(--border-w) solid var(--border-clr);background:var(--white-clr);box-shadow:var(--shadow);margin-bottom:calc(var(--padding)/3)}
+    aside[role="leftbar"]  nav a i{margin-right:calc(var(--padding)/3);width:var(--padding);text-align:center}
+    aside[role="leftbar"]  nav a.active,aside[role="leftbar"]  nav a:hover{background:var(--accent-primary);color:var(--white-clr);box-shadow:0 2px 0 var(--border-clr)}
+    aside[role="leftbar"] footer{margin-top:auto;padding-top:var(--padding);border-top:var(--border-w) solid var(--border-clr);color:var(--text-secondary);font-size:calc(var(--font-size) - 3px);}
+    main{flex:1;margin-left:var(--sidebar-w);padding:calc(var(--padding) * 2);transition:var(--transition);background:var(--bg-primary);transition:var(--transition);max-width:700px;margin:auto;margin-top:0;}
+    article{background:var(--white-clr);margin-bottom:calc(var(--padding)*1.5);transition:var(--transition);border:var(--border-w) solid var(--border-clr);box-shadow:var(--shadow);padding:0}
+    article:hover{box-shadow:var(--shadow-hover)}
+    article header{padding:calc(var(--padding)/2) var(--padding);border-bottom:var(--border-w) solid var(--border-clr);background:var(--accent-pastel-2)}
+    article header h2{font-size:calc(var(--font-size) + 10px);font-weight:700;margin-bottom:calc(var(--padding)/5);color:var(--text-primary);}
+    article header h2 a:hover {text-decoration: underline;}
+    article header time{display:flex;align-items:center;color:var(--text-secondary);font-size:calc(var(--font-size) - 3px);}
+    article header time span{display:flex;align-items:center;margin-right:calc(var(--padding)/2)}
+    article header time i{margin-right:calc(var(--padding)/4);font-size:calc(var(--font-size) - 3px);}
+    article section{padding:0}
+    article section p{color:var(--text-secondary);font-weight:400;padding:calc(var(--padding)/2) var(--padding) calc(var(--padding)/2) var(--padding)}
+    article section a{color:var(--text-primary);text-decoration:lowercase;font-weight:600;font-size:var(--font-size);display:flex;align-items:center;padding:calc(var(--padding)/3) calc(var(--padding)/1.5);background:var(--white-clr);transition:var(--transition);width:fit-content;justify-self:end;border-left:var(--border-w) solid transparent;border-top:var(--border-w) solid transparent}
+    article section a i{margin-left:calc(var(--padding)/3);transition:var(--transition)}
+    article section a:hover{background:var(--accent-primary);color:var(--white-clr);box-shadow:0 2px 0 var(--border-clr);}
+    article section a:hover i{transform:translateX(3px)}
+    article footer{display:flex;flex-wrap:wrap;align-items:flex-start;gap:calc(var(--padding)/4);align-items:center;padding:calc(var(--padding)/3);background:var(--accent-pastel);border-top:var(--border-w) solid var(--border-clr)}
+    article footer a{background:var(--bg-primary);color:var(--text-primary);padding:calc(var(--padding)/6) calc(var(--padding)/3);font-size:calc(var(--font-size) - 2px);}
+    article footer a:hover{background:var(--accent-primary);box-shadow: var(--shadow);color:var(--white-clr)}
+    article footer a:hover{background:var(--accent-primary);box-shadow: var(--shadow);color:var(--white-clr)}
+    .breadcrumb {display: flex; align-items: center; gap: 8px; font-size: calc(var(--font-size) - 2px); margin-bottom: calc(var(--padding)/2); padding: calc(var(--padding)/3); background: var(--accent-pastel); border: var(--border-w) solid var(--border-clr);}
+    .breadcrumb a {color: var(--text-primary); text-decoration: lowercase; display: flex; align-items: center;}
+    .breadcrumb a:hover {text-decoration: underline;}
+    .breadcrumb span {color: var(--text-secondary);}
+    .breadcrumb i {margin: 0 8px;}
+    footer[role="pagination"] {display: flex; justify-content: center; gap: 10px; margin-top: 20px; padding: 20px;}
+    footer[role="pagination"] a {padding: 8px 12px; border: var(--border-w) solid var(--border-clr); background: var(--white-clr); color: var(--text-primary); text-decoration: lowercase; box-shadow: var(--shadow);}
+    footer[role="pagination"] a.active {background: var(--accent-primary); color: var(--white-clr);}
+    footer[role="pagination"] a:hover {background: var(--accent-primary); color: var(--white-clr);}
+    .loading {text-align: center; padding: 40px; color: var(--text-secondary);}
+    .loading i {font-size: 24px; margin-bottom: 10px; display: block;}
+    
+    /* Yorumlar için yeni stiller */
+    .comments-section {margin-top: calc(var(--padding)*2); border-top: var(--border-w) solid var(--border-clr); padding-top: var(--padding);}
+    .comments-section h3 {font-size: calc(var(--font-size) + 6px); margin-bottom: var(--padding); color: var(--text-primary);}
+    .comment-form {background: var(--accent-pastel); padding: var(--padding); border: var(--border-w) solid var(--border-clr); margin-bottom: var(--padding);}
+    .comment-form h4 {margin-bottom: calc(var(--padding)/2);}
+    .form-group {margin-bottom: calc(var(--padding)/2);}
+    .form-group label {display: block; margin-bottom: 5px; font-weight: 500;}
+    .form-group input, .form-group textarea {width: 100%; padding: calc(var(--padding)/3); border: var(--border-w) solid var(--border-clr); font-family: var(--sans-font);}
+    .form-group textarea {min-height: 100px; resize: vertical;}
+    .btn-submit {background: var(--accent-primary); color: var(--white-clr); border: var(--border-w) solid var(--border-clr); padding: calc(var(--padding)/3) calc(var(--padding)/1.5); cursor: pointer; font-weight: 500; box-shadow: var(--shadow);}
+    .btn-submit:hover {background: var(--accent-secondary); box-shadow: var(--shadow-hover);}
+    .comment-list {margin-top: var(--padding);}
+    .comment {background: var(--white-clr); border: var(--border-w) solid var(--border-clr); margin-bottom: calc(var(--padding)/2); padding: var(--padding); box-shadow: var(--shadow);}
+    .comment-header {display: flex; justify-content: space-between; margin-bottom: calc(var(--padding)/2); padding-bottom: calc(var(--padding)/3); border-bottom: var(--border-w) solid var(--accent-pastel);}
+    .comment-author {font-weight: 600; color: var(--text-primary);}
+    .comment-date {color: var(--text-secondary); font-size: calc(var(--font-size) - 3px);}
+    .comment-content {color: var(--text-secondary); line-height: 1.6;}
+    .no-comments {text-align: center; padding: var(--padding); color: var(--text-secondary); background: var(--accent-pastel); border: var(--border-w) solid var(--border-clr);}
+    .comment-count {display: inline-block; background: var(--accent-primary); color: white; padding: 2px 8px; margin-left: 10px; font-size: 0.8em; border: var(--border-w) solid var(--border-clr);}
+
+    @media (max-width:1024px){
+    :root{--padding:20px}
+    body{flex-direction: column;}
+    aside[role="leftbar"]{transform:translateX(-100%)}
+    aside[role="leftbar"].active{transform:translateX(0)}
+    main{padding:calc(var(--padding)/ 2)}
+    header[role="top"]{display: flex;}
+    header[role="top"] #menuToggle{display:flex}
+    body.sidebar-active::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:5}
+    }
+    @media (max-width:768px){
+      :root{--max-w:100%;--padding:18px}
+      article header h2{font-size:calc(var(--font-size) + 12px)}
+      article header time{flex-wrap:wrap}
+      footer[role="pagination"] {flex-wrap: wrap;}
+      .breadcrumb {flex-wrap: wrap;}
+      .comment-header {flex-direction: column;}
+    }
+    @media (max-width:480px){
+      :root{--padding:16px}
+      .comment-form {padding: calc(var(--padding)/2);}
+      .comment {padding: calc(var(--padding)/2);}
+    }
+    ::-webkit-scrollbar{width:8px}
+    ::-webkit-scrollbar-track{background:var(--bg-primary)}
+    ::-webkit-scrollbar-thumb{background:var(--border-clr)}
+    ::-webkit-scrollbar-thumb:hover{background:var(--text-primary)}
+  </style>
 </head>
 <body>
-    <div class="main-container">
-        <h1 class="title">Selam, ben CK!</h1>
+  <!-- mobil menu -->
+  <header role="top">
+    <section>
+      <picture>
+        <source srcset="https://avatars.githubusercontent.com/u/75999325?v=4&size=32" media="(orientation: portrait)" />
+        <img src="https://avatars.githubusercontent.com/u/75999325?v=4&size=32" alt="Logo" />
+      </picture>
+      <h1><a href="./">ckoglu</a></h1>
+    </section>
+    <a id="menuToggle"><i class="fas fa-bars"></i></a>
+  </header>
+  <!-- sidebar -->
+  <aside role="leftbar">
+    <header>
+      <section>
+        <picture>
+          <source srcset="https://avatars.githubusercontent.com/u/75999325?v=4&size=32" media="(orientation: portrait)" />
+          <img src="https://avatars.githubusercontent.com/u/75999325?v=4&size=32" alt="Logo" />
+        </picture>
+        <h1><a href="./">ckoglu</a></h1>
+      </section>
+      <p>minimalizm üzerine</p>
+    </header>
+    <nav>
+      <a href="#"><i class="fas fa-home"></i><span>ana sayfa</span></a>
+      <a href="#"><i class="fas fa-pen"></i><span>yazılar</span></a>
+      <a href="#"><i class="fas fa-user"></i><span>hakkımda</span></a>
+      <a href="#"><i class="fas fa-folder"></i><span>kategoriler</span></a>
+      <a href="#"><i class="fas fa-envelope"></i><span>iletişim</span></a>
+    </nav>
+    <footer>
+      <p>© 2025 ckoglu</p>
+      <p>tüm hakları saklıdır</p>
+    </footer>
+  </aside>
+  <!-- blog -->
+  <main></main>
+  <script>
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbzPBzAOhxGd0R0NiYgnAwtMrdj3gNcIgK9oGTWklr16n-Vnab2Y8vf5VlLrWYoREeNI/exec";
 
-        <p class="profile-description">
-            Verileri düzenleyip herkesin kolayca kullanabileceği <strong class="text-purple-600">basit ve işlevsel sistemler</strong> geliştirmeyi seviyorum 🚀
-        </p>
+  document.addEventListener('DOMContentLoaded', function() {
+    const basePath = location.pathname;
+    const searchParams = new URLSearchParams(location.search);
 
-        <ul class="feature-list">
-            <li>
-                <span class="icon">🔸</span>
-                <span class="text">Web projelerinde özellikle <strong class="text-purple-600">modüler JavaScript</strong>, <strong class="text-purple-600">CSV → JSON veri işleme</strong>, <strong class="text-purple-600">Firebase</strong> ve <strong class="text-purple-600">WebSocket</strong> üzerine çalışıyorum.</span>
-            </li>
-            <li>
-                <span class="icon">🔸</span>
-                <span class="text">Kendi geliştirdiğim küçük ama kullanışlı <strong class="text-purple-600">API çözümleri</strong> ile veri işleme üzerine projeler geliştiriyorum.</span>
-            </li>
-        </ul>
+    // Sayfa yönlendirme
+    if (!searchParams.has('postId')) {
+      if (!searchParams.has('sayfa') || !searchParams.has('limit')) {
+        const newSearchParams = new URLSearchParams(location.search);
+        if (!newSearchParams.has('sayfa')) newSearchParams.set('sayfa', '1');
+        if (!newSearchParams.has('limit')) newSearchParams.set('limit', '5');
+        const newUrl = `${location.origin}${basePath}?${newSearchParams.toString()}`;
+        history.replaceState({}, "", newUrl);
+      }
+    }
 
-        <div class="skill-icons-container">
-            <img src="https://skillicons.dev/icons?i=js,html,css,firebase,cloudflare,nodejs,git,github,vscode" alt="Yetenek İkonları" class="skill-icon-img">
-        </div>
+    const mobileToggle = document.getElementById('menuToggle');
+    const sidebar = document.querySelector('aside[role="leftbar"]');
+    const body = document.body;
 
-        <div class="github-stats-container">
-            <img src="https://github-readme-stats.vercel.app/api?username=ckoglu&show_icons=true&theme=tokyonight&hide_border=true" alt="GitHub İstatistikleri" class="github-stats-img">
-            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ckoglu&layout=compact&theme=tokyonight&hide_border=true" alt="En Çok Kullanılan Diller" class="github-stats-img">
-        </div>
+    // Mobil menü toggle
+    mobileToggle.addEventListener('click', e => {
+      e.stopPropagation();
+      sidebar.classList.toggle('active');
+      body.classList.toggle('sidebar-active');
+    });
 
-        <div class="button-container">
-            <a href="https://github.com/ckoglu" target="_blank" rel="noopener noreferrer" class="github-button">
-                <img src="https://img.shields.io/badge/GitHub-ckoglu-181717?style=for-the-badge&logo=github" alt="GitHub Rozeti" class="github-button-img"/>
-                GitHub Profilim
-            </a>
-        </div>
-    </div>
+    document.addEventListener('click', e => {
+      if (sidebar.classList.contains('active') && !sidebar.contains(e.target) && e.target !== mobileToggle) {
+        sidebar.classList.remove('active');
+        body.classList.remove('sidebar-active');
+      }
+    });
+
+    const site = location.origin;
+    const pathname = location.pathname;
+    const parts = pathname.split('/').filter(Boolean);
+    const repository = parts.length > 0 ? `/${parts[0]}/` : '/';
+
+    // Göreceli zaman
+    function timeAgo(dateTimeStr) {
+      const now = new Date();
+      const postDate = new Date(dateTimeStr.replace(/(\d{2})\.(\d{2})\.(\d{4}) (\d{2}:\d{2})/, '$3-$2-$1T$4:00+03:00'));
+      const diffMs = now - postDate;
+
+      const seconds = Math.floor(diffMs / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+      const weeks = Math.floor(days / 7);
+      const months = Math.floor(days / 30);
+      const years = Math.floor(days / 365);
+
+      if (years > 0) return `${years} yıl önce`;
+      if (months > 0) return `${months} ay önce`;
+      if (weeks > 0) return `${weeks} hafta önce`;
+      if (days > 0) return `${days} gün önce`;
+      if (hours > 0) return `${hours} saat önce`;
+      if (minutes > 0) return `${minutes} dakika önce`;
+      return `${seconds} saniye önce`;
+    }
+
+    // Metni kısalt
+    function truncateText(text, maxLength) {
+      const cleanText = text.replace(/<[^>]*>/g, '');
+      return cleanText.length <= maxLength ? cleanText : cleanText.substring(0, maxLength) + ' ...';
+    }
+
+    // Breadcrumb
+    function generateBreadcrumb(postTitle = '') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const postId = urlParams.get('postId');
+      const tag = urlParams.get('tag');
+      const sayfa = urlParams.get('sayfa');
+      let breadcrumbHTML = `<div class="breadcrumb"><a href="${site}${repository}">Ana Sayfa</a>`;
+      if (tag) breadcrumbHTML += `<i class="fas fa-chevron-right"></i><a href="${site}${repository}?tag=tag:${tag.replace('tag:', '')}">Etiket: ${tag.replace('tag:', '')}</a>`;
+      else if (postId && postTitle) breadcrumbHTML += `<i class="fas fa-chevron-right"></i><a href="${site}${repository}?postId=${postId}">${postTitle}</a>`;
+      else if (sayfa && sayfa > 1) breadcrumbHTML += `<i class="fas fa-chevron-right"></i><span>Sayfa ${sayfa}</span>`;
+      breadcrumbHTML += `</div>`;
+      return breadcrumbHTML;
+    }
+
+    // API: yorum çek
+    async function fetchComments(postId) {
+      try {
+        const res = await fetch(`${GAS_URL}?action=getComments&postId=${postId}`);
+        if (!res.ok) throw new Error();
+        return await res.json();
+      } catch {
+        return { success: false, comments: [] };
+      }
+    }
+
+    // API: yorum ekle
+    async function addComment(postId, author, content) {
+      try {
+        const res = await fetch(GAS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'addComment', postId, author, content })
+        });
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return await res.json();
+      } catch (error) {
+        console.error('Yorum ekleme hatası:', error);
+        return { success: false, message: 'Yorum eklenirken hata oluştu: ' + error.message };
+      }
+    }
+
+    function sanitizeInput(input) {
+      return input.replace(/[<>"'&]/g, '');
+    }
+
+    // Yorumları göster
+    function displayComments(comments, postId) {
+      const section = document.createElement('div');
+      section.className = 'comments-section';
+      section.innerHTML = `<h3><i class="fas fa-comments"></i> Yorumlar <span class="comment-count">${comments.length}</span></h3>`;
+
+      const formDiv = document.createElement('div');
+      formDiv.className = 'comment-form';
+      formDiv.innerHTML = `
+        <h4>Yorum Ekle</h4>
+        <form id="commentForm">
+          <div class="form-group">
+            <label for="commentAuthor">İsim</label>
+            <input type="text" id="commentAuthor" required>
+          </div>
+          <div class="form-group">
+            <label for="commentContent">Yorumunuz</label>
+            <textarea id="commentContent" required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Gönder</button>
+        </form>
+      `;
+      formDiv.querySelector('form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const author = document.getElementById('commentAuthor').value.trim();
+        const content = document.getElementById('commentContent').value.trim();
+        if (!author || !content) return alert('Lütfen tüm alanları doldurun.');
+
+        const result = await addComment(postId, author, content);
+        if (result.success) {
+          alert('Yorum başarıyla eklendi!');
+          document.getElementById('commentAuthor').value = '';
+          document.getElementById('commentContent').value = '';
+          loadComments(postId);
+        } else alert(result.message);
+      });
+      section.appendChild(formDiv);
+
+      const listDiv = document.createElement('div');
+      listDiv.className = 'comment-list';
+      if (!comments.length) listDiv.innerHTML = '<div class="no-comments"><i class="fas fa-comment-slash"></i> Henüz yorum yok! İlk yorumu siz yapın.</div>';
+      else comments.forEach(c => {
+        const cDiv = document.createElement('div');
+        cDiv.className = 'comment';
+        cDiv.innerHTML = `
+          <div class="comment-header">
+            <span class="comment-author">${c.author}</span>
+            <span class="comment-date">${timeAgo(c.timestamp)}</span>
+          </div>
+          <div class="comment-content">${c.content}</div>
+        `;
+        listDiv.appendChild(cDiv);
+      });
+      section.appendChild(listDiv);
+      return section;
+    }
+
+    // Yorumları yükle
+    async function loadComments(postId) {
+      const container = document.getElementById('commentsContainer');
+      if (!container) return;
+      container.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Yorumlar yükleniyor...</div>';
+      const result = await fetchComments(postId);
+      container.innerHTML = '';
+      if (result.success) container.appendChild(displayComments(result.comments, postId));
+      else container.innerHTML = '<div class="no-comments">Yorumlar yüklenemedi.</div>';
+    }
+
+    // Query string güncelle
+    function updateQueryString(key, value) {
+      const urlParams = new URLSearchParams(window.location.search);
+      urlParams.set(key, value);
+      return `?${urlParams.toString()}`;
+    }
+
+    // Postları çek
+    async function fetchPostData() {
+      const main = document.querySelector('main');
+      main.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i>yükleniyor...</div>';
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const postId = urlParams.get('postId');
+      const queryString = window.location.search ? `?${window.location.search.slice(1)}` : '';
+
+      try {
+        const workerUrl = `https://spreadsheets.ckoglu.workers.dev/1T5JvKh7vNA7apvdR2SFEeFw1N5oN6-ueBN-oVZNseJ8/post${queryString}`;
+        const response = await fetch(workerUrl);
+        if (!response.ok) throw new Error('Veri alınamadı');
+        const data = await response.json();
+
+        main.innerHTML = '';
+        const isSinglePost = postId && data.results.length === 1;
+        if (!data.results.length) {
+          main.innerHTML = '<div class="loading"><i class="fas fa-exclamation-circle"></i> içerik yok.</div>';
+          return;
+        }
+
+        let postTitle = '';
+        if (isSinglePost) postTitle = data.results[0].title;
+        main.innerHTML = generateBreadcrumb(postTitle);
+
+        data.results.forEach(post => {
+          const article = document.createElement('article');
+          const header = document.createElement('header');
+          header.innerHTML = `
+            <h2><a href="${site}${repository}?postId=${post.postId}">${post.title}</a></h2>
+            <time>
+              <span><i class="far fa-calendar"></i> ${post.date}</span>
+              <span><i class="far fa-clock"></i> ${post.time}</span>
+            </time>
+          `;
+          const section = document.createElement('section');
+          section.innerHTML = `<p>${isSinglePost ? post.text : truncateText(post.text, 100)}</p>`;
+          if (!isSinglePost) {
+            const link = document.createElement('a');
+            link.href = `${site}${repository}?postId=${post.postId}`;
+            link.innerHTML = `devamını oku <i class="fas fa-arrow-right"></i>`;
+            section.appendChild(link);
+          }
+          const footer = document.createElement('footer');
+          footer.innerHTML = post.tag.split(',').map(t => `<a href="${site}${repository}?tag=tag:${t.trim()}" target="_blank">${t.trim()}</a>`).join('');
+
+          article.appendChild(header);
+          article.appendChild(section);
+          article.appendChild(footer);
+          main.appendChild(article);
+        });
+
+        if (isSinglePost) {
+          const commentFooter = document.createElement('footer');
+          commentFooter.setAttribute('role','comments');
+          const commentsContainer = document.createElement('div');
+          commentsContainer.id = 'commentsContainer';
+          commentFooter.appendChild(commentsContainer);
+          main.appendChild(commentFooter);
+          loadComments(postId);
+        }
+
+        // Sayfalama
+        if (!isSinglePost) {
+          const pagesFooter = document.createElement('footer');
+          pagesFooter.setAttribute('role','pagination');
+          main.appendChild(pagesFooter);
+          const totalPages = Math.ceil(data.total / (parseInt(urlParams.get('limit')) || 10));
+          const currentPage = parseInt(urlParams.get('sayfa')) || 1;
+
+          if (currentPage > 1) {
+            const prevLink = document.createElement('a');
+            prevLink.href = updateQueryString('sayfa', currentPage - 1);
+            prevLink.textContent = 'önceki';
+            pagesFooter.appendChild(prevLink);
+          }
+
+          for (let i = 1; i <= totalPages; i++) {
+            const pageLink = document.createElement('a');
+            pageLink.href = updateQueryString('sayfa', i);
+            pageLink.textContent = i;
+            if (i === currentPage) pageLink.className = 'active';
+            pagesFooter.appendChild(pageLink);
+          }
+
+          if (currentPage < totalPages) {
+            const nextLink = document.createElement('a');
+            nextLink.href = updateQueryString('sayfa', currentPage + 1);
+            nextLink.textContent = 'sonraki';
+            pagesFooter.appendChild(nextLink);
+          }
+        }
+
+      } catch (error) {
+        console.error('Hata:', error);
+        main.innerHTML = generateBreadcrumb() + '<div class="loading"><i class="fas fa-exclamation-triangle"></i> Hata: içerik yüklenemedi!</div>';
+      }
+    }
+
+    fetchPostData();
+    window.addEventListener('popstate', fetchPostData);
+
+    // Pürüzsüz scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (window.innerWidth <= 1024) {
+            sidebar.classList.remove('active');
+            body.classList.remove('sidebar-active');
+          }
+        }
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
