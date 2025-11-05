@@ -10,362 +10,111 @@
     <link rel="icon" href="https://avatars.githubusercontent.com/u/75999325?v=4&size=16">
     <meta name="theme-color" content="#58437e" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)">
+    <script src="./js/noflash.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preload" href="style.css" as="style">
-    <link rel="stylesheet" href="style.css" />
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
   <!-- mobil menu -->
   <header role="top">
-    <section>
-      <picture>
-        <source srcset="https://avatars.githubusercontent.com/u/75999325?v=4&size=32" media="(orientation: portrait)" />
-        <img src="https://avatars.githubusercontent.com/u/75999325?v=4&size=32" alt="Logo" />
-      </picture>
-      <h1><a href="./">ckoglu</a></h1>
+    <section role="search">
+      <form id="searchForm">
+        <input placeholder="arama yap" type="text" id="search" required>
+        <button onclick="showToast('check', 'Bilinmeyen bir hata meydana geldi, lütfen moderatörlerle görüşün.', 'green')"><data size="1" data-tooltip-left="arama yap"><i icon="search"></i></data></button>
+      </form>
+      <details class="dropdown">
+      <summary role="top-button" data-tooltip-left="tema değiştir" class="secondary"><data size="1"><i icon="edit-fade"></i></data></summary>
+      <ul>
+        <li><a href="#" data-theme="light">açık</a></li>
+        <li><a href="#" data-theme="dark">koyu</a></li>
+        <li><a href="#" data-theme="system">sistem</a></li>
+        <li><a href="#" data-theme="auto">otomatik</a></li>
+      </ul>
+    </details>
     </section>
-    <a id="menuToggle"><i class="fas fa-bars"></i></a>
+    <a id="menuToggle" role="top-menu" data-tooltip-left="menü aç/kapat"><data size="1"><i icon="menu-left"></i></data></a>
   </header>
   <!-- sidebar -->
   <aside role="leftbar">
     <header>
       <section>
         <picture>
-          <source srcset="https://avatars.githubusercontent.com/u/75999325?v=4&size=32" media="(orientation: portrait)" />
-          <img src="https://avatars.githubusercontent.com/u/75999325?v=4&size=32" alt="Logo" />
+          <source srcset="https://avatars.githubusercontent.com/u/75999325?v=4&size=26" media="(orientation: portrait)" />
+          <img src="https://avatars.githubusercontent.com/u/75999325?v=4&size=28" alt="Logo" />
         </picture>
         <h1><a href="./">ckoglu</a></h1>
+        <p>biraz biraz her şey...</p>
       </section>
-      <p>minimalizm üzerine</p>
     </header>
     <nav>
-      <a href="#"><i class="fas fa-home"></i><span>ana sayfa</span></a>
-      <a href="#"><i class="fas fa-pen"></i><span>yazılar</span></a>
-      <a href="#"><i class="fas fa-user"></i><span>hakkımda</span></a>
-      <a href="#"><i class="fas fa-folder"></i><span>kategoriler</span></a>
-      <a href="#"><i class="fas fa-envelope"></i><span>iletişim</span></a>
+      <a href="./" data-tooltip-right="ana sayfa"><data size="1"><i icon="home-alt"></i></data><span>ana sayfa</span></a>
+      <a href="#" data-target="modal-hakkimda" onclick="toggleModal(event)" data-tooltip-right="hakkımda"><data size="1"><i icon="profile"></i></data><span>hakkımda</span></a>
+      <a href="#" data-tooltip-right="kategoriler"><data size="1"><i icon="folder"></i></data><span>kategoriler</span></a>
+      <a href="https://spreadsheets.ckoglu.workers.dev/1T5JvKh7vNA7apvdR2SFEeFw1N5oN6-ueBN-oVZNseJ8/post?" target="_blank" data-tooltip-right="RSS"><data size="1"><i icon="code-slash"></i></data><span>RSS</span></a>
+      <a href="#" data-target="modal-iletisim" onclick="toggleModal(event)" data-tooltip-right="iletişim"><data size="1"><i icon="mail"></i></data><span>iletişim</span></a>
+      <a href="#"  data-target="modal-bilgi" onclick="toggleModal(event)" data-tooltip-right="bilgi"><data size="1"><i icon="info"></i></data><span>bilgi</span></a>
     </nav>
     <footer>
-      <p>© 2025 ckoglu</p>
-      <p>tüm hakları saklıdır</p>
+      <p>© 2025 ckoglu, MIT lisanlı</p>
+      <p></p>
+      <div id="google_translate_element"></div>
     </footer>
   </aside>
   <!-- blog -->
   <main></main>
-  <script>
-  const GAS_URL = "https://script.google.com/macros/s/AKfycbzPBzAOhxGd0R0NiYgnAwtMrdj3gNcIgK9oGTWklr16n-Vnab2Y8vf5VlLrWYoREeNI/exec";
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const basePath = location.pathname;
-    const searchParams = new URLSearchParams(location.search);
+  <!-- Modal example -->
+  <dialog id="modal-hakkimda">
+    <article role="modal">
+      <button role="close" data-tooltip-left="kapat" onclick="closeModal(document.getElementById('modal-hakkimda'))">×</button>
+      <header>
+        <h3>Hakkımda</h3>
+      </header>
+      <section>
+        <p>Ben ckoglu. Web geliştirme ve minimalizm üzerine çalışmalar yapıyorum. Bu blog kişisel deneyimlerimi ve öğrendiklerimi paylaşmak için oluşturuldu.</p>
+      </section>
+    </article>
+  </dialog>
 
-    // Sayfa yönlendirme
-    if (!searchParams.has('postId')) {
-      if (!searchParams.has('sayfa') || !searchParams.has('limit')) {
-        const newSearchParams = new URLSearchParams(location.search);
-        if (!newSearchParams.has('sayfa')) newSearchParams.set('sayfa', '1');
-        if (!newSearchParams.has('limit')) newSearchParams.set('limit', '5');
-        const newUrl = `${location.origin}${basePath}?${newSearchParams.toString()}`;
-        history.replaceState({}, "", newUrl);
-      }
-    }
+  <dialog id="modal-iletisim">
+    <article role="modal">
+      <button role="close" data-tooltip-left="kapat" onclick="closeModal(document.getElementById('modal-iletisim'))">×</button>
+      <header>
+        <h3>İletişim</h3>
+      </header>
+      <section>
+        <p>Benimle iletişime geçmek için aşağıdaki bilgileri kullanabilirsiniz:</p>
+        <ul>
+          <li>Email: ornek@email.com</li>
+          <li>GitHub: ckoglu</li>
+        </ul>
+      </section>
+    </article>
+  </dialog>
 
-    const mobileToggle = document.getElementById('menuToggle');
-    const sidebar = document.querySelector('aside[role="leftbar"]');
-    const body = document.body;
-
-    // Mobil menü toggle
-    mobileToggle.addEventListener('click', e => {
-      e.stopPropagation();
-      sidebar.classList.toggle('active');
-      body.classList.toggle('sidebar-active');
-    });
-
-    document.addEventListener('click', e => {
-      if (sidebar.classList.contains('active') && !sidebar.contains(e.target) && e.target !== mobileToggle) {
-        sidebar.classList.remove('active');
-        body.classList.remove('sidebar-active');
-      }
-    });
-
-    const site = location.origin;
-    const pathname = location.pathname;
-    const parts = pathname.split('/').filter(Boolean);
-    const repository = parts.length > 0 ? `/${parts[0]}/` : '/';
-
-    // Göreceli zaman
-    function timeAgo(dateTimeStr) {
-      const now = new Date();
-      const postDate = new Date(dateTimeStr.replace(/(\d{2})\.(\d{2})\.(\d{4}) (\d{2}:\d{2})/, '$3-$2-$1T$4:00+03:00'));
-      const diffMs = now - postDate;
-
-      const seconds = Math.floor(diffMs / 1000);
-      const minutes = Math.floor(seconds / 60);
-      const hours = Math.floor(minutes / 60);
-      const days = Math.floor(hours / 24);
-      const weeks = Math.floor(days / 7);
-      const months = Math.floor(days / 30);
-      const years = Math.floor(days / 365);
-
-      if (years > 0) return `${years} yıl önce`;
-      if (months > 0) return `${months} ay önce`;
-      if (weeks > 0) return `${weeks} hafta önce`;
-      if (days > 0) return `${days} gün önce`;
-      if (hours > 0) return `${hours} saat önce`;
-      if (minutes > 0) return `${minutes} dakika önce`;
-      return `${seconds} saniye önce`;
-    }
-
-    // Metni kısalt
-    function truncateText(text, maxLength) {
-      const cleanText = text.replace(/<[^>]*>/g, '');
-      return cleanText.length <= maxLength ? cleanText : cleanText.substring(0, maxLength) + ' ...';
-    }
-
-    // Breadcrumb
-    function generateBreadcrumb(postTitle = '') {
-      const urlParams = new URLSearchParams(window.location.search);
-      const postId = urlParams.get('postId');
-      const tag = urlParams.get('tag');
-      const sayfa = urlParams.get('sayfa');
-      let breadcrumbHTML = `<div class="breadcrumb"><a href="${site}${repository}">Ana Sayfa</a>`;
-      if (tag) breadcrumbHTML += `<i class="fas fa-chevron-right"></i><a href="${site}${repository}?tag=tag:${tag.replace('tag:', '')}">Etiket: ${tag.replace('tag:', '')}</a>`;
-      else if (postId && postTitle) breadcrumbHTML += `<i class="fas fa-chevron-right"></i><a href="${site}${repository}?postId=${postId}">${postTitle}</a>`;
-      else if (sayfa && sayfa > 1) breadcrumbHTML += `<i class="fas fa-chevron-right"></i><span>Sayfa ${sayfa}</span>`;
-      breadcrumbHTML += `</div>`;
-      return breadcrumbHTML;
-    }
-
-    // API: yorum çek
-    async function fetchComments(postId) {
-      try {
-        const res = await fetch(`${GAS_URL}?action=getComments&postId=${postId}`);
-        if (!res.ok) throw new Error();
-        return await res.json();
-      } catch {
-        return { success: false, comments: [] };
-      }
-    }
-
-    // API: yorum ekle
-    async function addComment(postId, author, content) {
-      try {
-        const res = await fetch(GAS_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'addComment', postId, author, content })
-        });
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-        return await res.json();
-      } catch (error) {
-        console.error('Yorum ekleme hatası:', error);
-        return { success: false, message: 'Yorum eklenirken hata oluştu: ' + error.message };
-      }
-    }
-
-    function sanitizeInput(input) {
-      return input.replace(/[<>"'&]/g, '');
-    }
-
-    // Yorumları göster
-    function displayComments(comments, postId) {
-      const section = document.createElement('div');
-      section.className = 'comments-section';
-      section.innerHTML = `<h3><i class="fas fa-comments"></i> Yorumlar <span class="comment-count">${comments.length}</span></h3>`;
-
-      const formDiv = document.createElement('div');
-      formDiv.className = 'comment-form';
-      formDiv.innerHTML = `
-        <h4>Yorum Ekle</h4>
-        <form id="commentForm">
-          <div class="form-group">
-            <label for="commentAuthor">İsim</label>
-            <input type="text" id="commentAuthor" required>
-          </div>
-          <div class="form-group">
-            <label for="commentContent">Yorumunuz</label>
-            <textarea id="commentContent" required></textarea>
-          </div>
-          <button type="submit" class="btn-submit">Gönder</button>
-        </form>
-      `;
-      formDiv.querySelector('form').addEventListener('submit', async e => {
-        e.preventDefault();
-        const author = document.getElementById('commentAuthor').value.trim();
-        const content = document.getElementById('commentContent').value.trim();
-        if (!author || !content) return alert('Lütfen tüm alanları doldurun.');
-
-        const result = await addComment(postId, author, content);
-        if (result.success) {
-          alert('Yorum başarıyla eklendi!');
-          document.getElementById('commentAuthor').value = '';
-          document.getElementById('commentContent').value = '';
-          loadComments(postId);
-        } else alert(result.message);
-      });
-      section.appendChild(formDiv);
-
-      const listDiv = document.createElement('div');
-      listDiv.className = 'comment-list';
-      if (!comments.length) listDiv.innerHTML = '<div class="no-comments"><i class="fas fa-comment-slash"></i> Henüz yorum yok! İlk yorumu siz yapın.</div>';
-      else comments.forEach(c => {
-        const cDiv = document.createElement('div');
-        cDiv.className = 'comment';
-        cDiv.innerHTML = `
-          <div class="comment-header">
-            <span class="comment-author">${c.author}</span>
-            <span class="comment-date">${timeAgo(c.timestamp)}</span>
-          </div>
-          <div class="comment-content">${c.content}</div>
-        `;
-        listDiv.appendChild(cDiv);
-      });
-      section.appendChild(listDiv);
-      return section;
-    }
-
-    // Yorumları yükle
-    async function loadComments(postId) {
-      const container = document.getElementById('commentsContainer');
-      if (!container) return;
-      container.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Yorumlar yükleniyor...</div>';
-      const result = await fetchComments(postId);
-      container.innerHTML = '';
-      if (result.success) container.appendChild(displayComments(result.comments, postId));
-      else container.innerHTML = '<div class="no-comments">Yorumlar yüklenemedi.</div>';
-    }
-
-    // Query string güncelle
-    function updateQueryString(key, value) {
-      const urlParams = new URLSearchParams(window.location.search);
-      urlParams.set(key, value);
-      return `?${urlParams.toString()}`;
-    }
-
-    // Postları çek
-    async function fetchPostData() {
-      const main = document.querySelector('main');
-      main.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i>yükleniyor...</div>';
-
-      const urlParams = new URLSearchParams(window.location.search);
-      const postId = urlParams.get('postId');
-      const queryString = window.location.search ? `?${window.location.search.slice(1)}` : '';
-
-      try {
-        const workerUrl = `https://spreadsheets.ckoglu.workers.dev/1T5JvKh7vNA7apvdR2SFEeFw1N5oN6-ueBN-oVZNseJ8/post${queryString}`;
-        const response = await fetch(workerUrl);
-        if (!response.ok) throw new Error('Veri alınamadı');
-        const data = await response.json();
-
-        main.innerHTML = '';
-        const isSinglePost = postId && data.results.length === 1;
-        if (!data.results.length) {
-          main.innerHTML = '<div class="loading"><i class="fas fa-exclamation-circle"></i> içerik yok.</div>';
-          return;
-        }
-
-        let postTitle = '';
-        if (isSinglePost) postTitle = data.results[0].title;
-        main.innerHTML = generateBreadcrumb(postTitle);
-
-        data.results.forEach(post => {
-          const article = document.createElement('article');
-          const header = document.createElement('header');
-          header.innerHTML = `
-            <h2><a href="${site}${repository}?postId=${post.postId}">${post.title}</a></h2>
-            <time>
-              <span><i class="far fa-calendar"></i> ${post.date}</span>
-              <span><i class="far fa-clock"></i> ${post.time}</span>
-            </time>
-          `;
-          const section = document.createElement('section');
-          section.innerHTML = `<p>${isSinglePost ? post.text : truncateText(post.text, 100)}</p>`;
-          if (!isSinglePost) {
-            const link = document.createElement('a');
-            link.href = `${site}${repository}?postId=${post.postId}`;
-            link.innerHTML = `devamını oku <i class="fas fa-arrow-right"></i>`;
-            section.appendChild(link);
-          }
-          const footer = document.createElement('footer');
-          footer.innerHTML = post.tag.split(',').map(t => `<a href="${site}${repository}?tag=tag:${t.trim()}" target="_blank">${t.trim()}</a>`).join('');
-
-          article.appendChild(header);
-          article.appendChild(section);
-          article.appendChild(footer);
-          main.appendChild(article);
-        });
-
-        if (isSinglePost) {
-          const commentFooter = document.createElement('footer');
-          commentFooter.setAttribute('role','comments');
-          const commentsContainer = document.createElement('div');
-          commentsContainer.id = 'commentsContainer';
-          commentFooter.appendChild(commentsContainer);
-          main.appendChild(commentFooter);
-          loadComments(postId);
-        }
-
-        // Sayfalama
-        if (!isSinglePost) {
-          const pagesFooter = document.createElement('footer');
-          pagesFooter.setAttribute('role','pagination');
-          main.appendChild(pagesFooter);
-          const totalPages = Math.ceil(data.total / (parseInt(urlParams.get('limit')) || 10));
-          const currentPage = parseInt(urlParams.get('sayfa')) || 1;
-
-          if (currentPage > 1) {
-            const prevLink = document.createElement('a');
-            prevLink.href = updateQueryString('sayfa', currentPage - 1);
-            prevLink.textContent = 'önceki';
-            pagesFooter.appendChild(prevLink);
-          }
-
-          for (let i = 1; i <= totalPages; i++) {
-            const pageLink = document.createElement('a');
-            pageLink.href = updateQueryString('sayfa', i);
-            pageLink.textContent = i;
-            if (i === currentPage) pageLink.className = 'active';
-            pagesFooter.appendChild(pageLink);
-          }
-
-          if (currentPage < totalPages) {
-            const nextLink = document.createElement('a');
-            nextLink.href = updateQueryString('sayfa', currentPage + 1);
-            nextLink.textContent = 'sonraki';
-            pagesFooter.appendChild(nextLink);
-          }
-        }
-
-      } catch (error) {
-        console.error('Hata:', error);
-        main.innerHTML = generateBreadcrumb() + '<div class="loading"><i class="fas fa-exclamation-triangle"></i> Hata: içerik yüklenemedi!</div>';
-      }
-    }
-
-    fetchPostData();
-    window.addEventListener('popstate', fetchPostData);
-
-    // Pürüzsüz scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          if (window.innerWidth <= 1024) {
-            sidebar.classList.remove('active');
-            body.classList.remove('sidebar-active');
-          }
-        }
-      });
-    });
-  });
-</script>
-
+  <dialog id="modal-bilgi">
+    <article role="modal">
+      <button role="close" data-tooltip-left="kapat" onclick="closeModal(document.getElementById('modal-bilgi'))">×</button>
+      <header>
+        <h3>Bilgi</h3>
+      </header>
+      <section>
+        <p>Bu blog, HTML, CSS ve JavaScript kullanılarak oluşturulmuştur. Modal pencereler modern dialog elementleri kullanılarak tasarlanmıştır.</p>
+      </section>
+    </article>
+  </dialog>
+  <!-- ./ Modal example -->
+  <div id="toastContainer"></div>
+  <a role="top-scroll" data-tooltip-left="yukarı çık"><data size="1"><i icon="arrow-up"></i></data></a>
+  <!-- ./ js file -->
+  <script src="./js/theme.js"></script>
+  <script src="./js/blog.js"></script>
+  <script src="./js/modal.js"></script>
+  <script src="./js/other.js"></script>
+  <script src="./js/translate.js"></script>
 </body>
 </html>
